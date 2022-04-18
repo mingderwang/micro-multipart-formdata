@@ -1,6 +1,9 @@
-const sleep = require("then-sleep");
+const rateLimit = require("micro-ratelimit");
 
-module.exports = async (req, res) => {
-  await sleep(500);
-  return "Ready!";
-};
+// Limit example: 2 requests per 10 sec
+module.exports = rateLimit(
+  { window: 10000, limit: 2, headers: true },
+  (req, res) => {
+    return "Hello world";
+  }
+);
