@@ -1,10 +1,22 @@
-const { send } = require("micro");
-const axios = require("axios");
+const { request } = require("graphql-request");
+const etherspot_endpoint = "https://etherspot.pillarproject.io/";
 
-module.exports = async (req, res) => {
-  const response = await axios.get("https://ghibliapi.herokuapp.com/films");
-  response.data.forEach((movie) => {
-    console.log(`${movie["title"]}, ${movie["release_date"]}`);
-  });
-  send(res, 200, response.data);
+const query = `
+ query {
+    blockStats {
+      currentBlockNumber
+    }
+  }
+`;
+module.exports = async () => {
+  const data = await request(etherspot_endpoint, query);
+  return data;
 };
+
+/*
+{
+    "blockStats": {
+        "currentBlockNumber": 14609667
+    }
+}
+*/
