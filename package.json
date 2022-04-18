@@ -3,16 +3,20 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "fs": "^0.0.1-security",
     "https": "^1.0.0",
     "micro": "^9.3.4",
     "micro-dev": "^3.0.0",
     "openssl-self-signed-certificate": "^1.1.6",
+    "path": "^0.12.7",
+    "socket.io": "^4.4.1",
     "then-sleep": "^1.0.1",
     "urlencoded-body-parser": "^3.0.0"
   },
   "scripts": {
     "start": "micro",
     "dev": "micro-dev",
-    "start:server": "node server.js"
+    "start:server": "node server.js",
+    "start:socket-io": "node index.js"
   }
 }

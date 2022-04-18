@@ -1,8 +1,18 @@
-const parse = require("urlencoded-body-parser");
+const micro = require("micro");
+const fs = require("fs");
+const path = require("path");
 
-module.exports = async (req) => {
-  const data = await parse(req, ({ limit = "1mb" } = {}));
-  console.log(data);
+const document = path.join(__dirname, "index.html");
+const html = fs.readFileSync(document);
 
-  return "Data logged to your console";
-};
+const server = micro(async (req, res) => {
+  console.log("Serving index.html");
+  res.end(html);
+});
+
+const io = require("socket.io")(server);
+
+// socket-io handlers are in websocket-server.js
+require("./websocket-server.js")(io);
+
+server.listen(4000, () => console.log("Listening on localhost:4000"));
