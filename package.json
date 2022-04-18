@@ -1,4 +1,7 @@
 {
+  "name": "vercel-micro-tutorial",
+  "description": "vercel-micro-tutorial",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -6,6 +9,7 @@
     "micro": "^9.3.4"
   },
   "scripts": {
-    "start": "micro"
+    "start": "micro",
+    "dev": "micro-dev"
   }
 }
