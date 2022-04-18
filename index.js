@@ -1,9 +1,10 @@
-const rateLimit = require("micro-ratelimit");
+const { send } = require("micro");
+const axios = require("axios");
 
-// Limit example: 2 requests per 10 sec
-module.exports = rateLimit(
-  { window: 10000, limit: 2, headers: true },
-  (req, res) => {
-    return "Hello world";
-  }
-);
+module.exports = async (req, res) => {
+  const response = await axios.get("https://ghibliapi.herokuapp.com/films");
+  response.data.forEach((movie) => {
+    console.log(`${movie["title"]}, ${movie["release_date"]}`);
+  });
+  send(res, 200, response.data);
+};
