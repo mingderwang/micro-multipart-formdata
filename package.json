@@ -3,9 +3,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "micro": "^9.3.4"
+    "micro": "^9.3.4",
+    "micro-dev": "^3.0.0",
+    "then-sleep": "^1.0.1"
   },
   "scripts": {
-    "start": "micro"
+    "start": "micro",
+    "dev": "micro-dev"
   }
 }
