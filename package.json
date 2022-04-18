@@ -1,0 +1,11 @@
+{
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "micro": "^9.3.4"
+  },
+  "scripts": {
+    "start": "micro"
+  }
+}
