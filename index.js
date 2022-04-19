@@ -1,22 +1,42 @@
-const { request } = require("graphql-request");
-const etherspot_endpoint = "https://etherspot.pillarproject.io/";
+const { router, get, post, options } = require("microrouter");
+const { ApolloServer, gql } = require("apollo-server-micro");
 
-const query = `
- query {
-    blockStats {
-      currentBlockNumber
-    }
+const typeDefs = gql`
+  type Query {
+    sayHello: String
   }
 `;
-module.exports = async () => {
-  const data = await request(etherspot_endpoint, query);
-  return data;
+
+const resolvers = {
+  Query: {
+    sayHello(parent, args, context) {
+      return "Hello World!";
+    },
+  },
 };
+
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
+module.exports = apolloServer.start().then(() => {
+  const graphqlPath = "/data";
+  const graphqlHandler = apolloServer.createHandler({ path: graphqlPath });
+  return router(
+    get("/", (req, res) => "Welcome!"),
+    post(graphqlPath, graphqlHandler),
+    get(graphqlPath, graphqlHandler)
+  );
+});
+
+/*
+query {
+    sayHello 
+}
+*/
+//output
 
 /*
 {
-    "blockStats": {
-        "currentBlockNumber": 14609667
+    "data": {
+        "sayHello": "Hello World!"
     }
 }
 */
